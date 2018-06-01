@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/backgroundlogin"
+    >
+
+    <ImageView
+        android:layout_width="166dp"
+        android:layout_height="153dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/logo" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="354dp"
+        android:layout_height="66dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="120dp"
+        android:background="@drawable/rounded_button_login"
+        android:text="@string/button_login" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="354dp"
+        android:layout_height="66dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/rounded_button_logout"
+        android:text="@string/button_logout" />
+
+    <EditText
+        android:id="@+id/emailLogin"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/senhaLogin"
+        android:layout_centerHorizontal="true"
+        android:drawableStart="@drawable/baseline_person_white_24dp"
+        android:drawableLeft="@drawable/baseline_person_white_24dp"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/senhaLogin"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="209dp"
+        android:drawableStart="@drawable/baseline_lock_white_24dp"
+        android:drawableLeft="@drawable/baseline_lock_white_24dp"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="Senha"
+        android:inputType="textPassword"  />
+
+</RelativeLayout>
