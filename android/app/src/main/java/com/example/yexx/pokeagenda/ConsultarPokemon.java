@@ -20,6 +20,11 @@ public class ConsultarPokemon extends AppCompatActivity {
 
         /* Pega a ação de clicar no menu id consultar_menu e traz para a tela ConsultarPokemon */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Integer[] imagens = {0};
+        String[] nomes = {"nome"};
+        String[] treinas = {"treina"};
+        this.popularListaPokemon(imagens, nomes, treinas);
     }
 
     public void popularListaPokemon(Integer[] imagem, String[] nomePoke, String[] nomeTreina){
