@@ -1,0 +1,21 @@
+{
+  "pokemon": [
+    {
+      "id": 1,
+      "nome": "Bulbasaur",
+      "especie": "Pokémon bulbo",
+      "peso": "5kg",
+      "altura": "30cm",
+      "foto": "sla.jpeg"
+    }
+  ],
+  "treinador": [
+    {
+      "id": 2,
+      "nome": "Giu paia",
+      "email": "giucortes",
+      "senha": "montanhasolitaria123",
+      "pkmnFav": 1
+    }
+  ]
+}
