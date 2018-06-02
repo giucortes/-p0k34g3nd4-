@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yexx.pokeagenda">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,26 +11,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PokeAgenda">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Controller.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Detalhe" />
+        <activity android:name=".Controller.DetalheActivity" />
         <!-- Activities Menu -->
-        <activity android:name=".ConsultarPokemon"
+        <activity android:name=".Controller.ConsultarPokemonActivity"
             android:label="@string/menu_primeira_opcao"
-            android:parentActivityName=".WelcomeActivity" />
-        <activity android:name=".CadastrarPokemon"
+            android:parentActivityName=".Controller.WelcomeActivity" />
+        <activity android:name=".Controller.CadastrarPokemonActivity"
             android:label="@string/menu_segunda_opcao"
-            android:parentActivityName=".WelcomeActivity"/>
-        <activity android:name=".PesquisarPokemon"
+            android:parentActivityName=".Controller.WelcomeActivity"/>
+        <activity android:name=".Controller.PesquisarPokemonActivity"
             android:label="@string/menu_terceira_opcao"
-            android:parentActivityName=".WelcomeActivity"/>
+            android:parentActivityName=".Controller.WelcomeActivity"/>
         <!-- - -->
-        <activity android:name=".WelcomeActivity"></activity>
+        <activity android:name=".Controller.WelcomeActivity"></activity>
     </application>
 
 </manifest>

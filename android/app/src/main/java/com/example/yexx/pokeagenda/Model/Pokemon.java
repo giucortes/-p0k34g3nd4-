@@ -1,4 +1,4 @@
-package com.example.yexx.pokeagenda;
+package com.example.yexx.pokeagenda.Model;
 
 /**
  * Created by gazip on 30/05/2018.

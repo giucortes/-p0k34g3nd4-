@@ -1,4 +1,4 @@
-package com.example.yexx.pokeagenda;
+package com.example.yexx.pokeagenda.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,14 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class CadastrarPokemon extends AppCompatActivity {
+import com.example.yexx.pokeagenda.R;
+
+public class CadastrarPokemonActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_pokemon);
 
-        /* Pega a ação de clicar no menu id cadastrar_menu e traz para a tela CadastrarPokemon */
+        /* Pega a ação de clicar no menu id cadastrar_menu e traz para a tela CadastrarPokemonActivity */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     public void cadastrarPokemon(View view){

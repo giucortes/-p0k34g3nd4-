@@ -1,4 +1,4 @@
-package com.example.yexx.pokeagenda;
+package com.example.yexx.pokeagenda.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import com.example.yexx.pokeagenda.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -28,15 +30,15 @@ public class WelcomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
          switch (item.getItemId()){
              case R.id.consultar_menu:
-                 Intent intent1 = new Intent(this,ConsultarPokemon.class);
+                 Intent intent1 = new Intent(this,ConsultarPokemonActivity.class);
                  this.startActivity(intent1);
                  return true;
              case R.id.cadastrar_menu:
-                 Intent intent2 = new Intent(this, CadastrarPokemon.class);
+                 Intent intent2 = new Intent(this, CadastrarPokemonActivity.class);
                  this.startActivity(intent2);
                  return true;
              case R.id.pesquisar_menu:
-                 Intent intent3 = new Intent(this,PesquisarPokemon.class);
+                 Intent intent3 = new Intent(this,PesquisarPokemonActivity.class);
                  this.startActivity(intent3);
                  return true;
              default:

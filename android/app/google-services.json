@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "230686674225",
+    "firebase_url": "https://pokeagenda-aa66d.firebaseio.com",
+    "project_id": "pokeagenda-aa66d",
+    "storage_bucket": "pokeagenda-aa66d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230686674225:android:cfa272c0475e2695",
+        "android_client_info": {
+          "package_name": "com.example.yexx.pokeagenda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230686674225-jtoum5nkkge5h561ef2gfsnkfauc0gji.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yexx.pokeagenda",
+            "certificate_hash": "51cfd4b952a7f959d7a8e1eae927de68aed95bf6"
+          }
+        },
+        {
+          "client_id": "230686674225-67a4f8335q85sl79cf752bp3qnq9oac6.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "230686674225-67a4f8335q85sl79cf752bp3qnq9oac6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHFN-AiZ3iCmxRT9Q0IqQJURTctIdYqmY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230686674225-67a4f8335q85sl79cf752bp3qnq9oac6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

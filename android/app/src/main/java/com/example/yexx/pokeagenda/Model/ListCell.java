@@ -1,4 +1,4 @@
-package com.example.yexx.pokeagenda;
+package com.example.yexx.pokeagenda.Model;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.yexx.pokeagenda.R;
 
 /**
  * Created by gazip on 30/05/2018.
