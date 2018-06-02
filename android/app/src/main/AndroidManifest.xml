@@ -16,7 +16,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Detalhe"></activity>
+        <activity android:name=".Detalhe" />
+        <!-- Activities Menu -->
+        <activity android:name=".ConsultarPokemon"
+            android:label="@string/menu_primeira_opcao"
+            android:parentActivityName=".WelcomeActivity" />
+        <activity android:name=".CadastrarPokemon"
+            android:label="@string/menu_segunda_opcao"
+            android:parentActivityName=".WelcomeActivity"/>
+        <activity android:name=".PesquisarPokemon"
+            android:label="@string/menu_terceira_opcao"
+            android:parentActivityName=".WelcomeActivity"/>
+        <!-- - -->
+        <activity android:name=".WelcomeActivity"></activity>
     </application>
 
 </manifest>

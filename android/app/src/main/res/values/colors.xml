@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#E60012</color>
+    <color name="colorPrimary">#e60012</color>
     <color name="colorPrimaryDark">#c90010</color>
     <color name="colorAccent">#e4e4e4</color>
+    <color name="transparente">#80000000</color>
+    <color name="texto_destaque_lista">#c3c3c3</color>
+
 </resources>

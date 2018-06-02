@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class HomeActivity extends AppCompatActivity {
+/* O que ta aqui foi passado pra ConsultarPokemon
     ListView list;
 
     @Override
@@ -16,12 +18,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
     }
 
-    //    @Override
-//    public boolean onCreateOptionsMenu(Menu menu){
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menuzim, menu);
-//        return true;
-//    }
+
 
     public void popularListaPokemon(Integer[] imagem, String[] nomePoke, String[] nomeTreina){
         ListCell adapter = new ListCell(HomeActivity.this, imagem, nomePoke, nomeTreina);
@@ -34,5 +31,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+*/
 }
 

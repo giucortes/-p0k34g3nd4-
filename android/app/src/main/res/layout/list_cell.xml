@@ -11,15 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/nomePoke"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="nome pokemon"/>
+            android:padding="5dp"
+            android:textSize="17sp"
+            android:fontFamily="@font/latobold"
+            android:textColor="@color/texto_destaque_lista"
+            android:text="Nome Pokemon" />
         <TextView
             android:id="@+id/nomeTreina"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="nome treinador"/>
+            android:padding="5dp"
+            android:fontFamily="@font/latoregular"
+            android:text="Nome Treinador"/>
     </LinearLayout>
 </LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/consultar_menu"
+        android:showAsAction="never"
+        android:title="@string/menu_primeira_opcao" />
+    <item
+        android:id="@+id/cadastrar_menu"
+        android:showAsAction="never"
+        android:title="@string/menu_segunda_opcao" />
+    <item
+        android:id="@+id/pesquisar_menu"
+        android:showAsAction="never"
+        android:title="@string/menu_terceira_opcao"
+        />
+    <item
+        android:id="@+id/logout"
+        android:showAsAction="never"
+        android:title="@string/menu_quarta_opcao"
+        />
+
+</menu>

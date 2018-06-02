@@ -1,21 +1,17 @@
 <resources>
     <string name="app_name">PokeAgenda</string>
     <string name="textfield_label">PokeAgenda</string>
+
     <string name="button_login">Login</string>
     <string name="button_logout">Logout</string>
+    <string name="button_cadastrar">Cadastrar</string>
+
     <string name="welcome">Bem vindo!</string>
+
     <string name="menu">Menu</string>
-    <string name="title_activity_menu">Menu</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_example">Example action</string>
-
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_welcome">Welcome</string>
+    <string name="menu_primeira_opcao">Consultar Pokemon</string>
+    <string name="menu_segunda_opcao">Cadastrar Pokemon</string>
+    <string name="menu_terceira_opcao">Pesquisar Pokemon</string>
+    <string name="menu_quarta_opcao">Sair</string>
 
 </resources>

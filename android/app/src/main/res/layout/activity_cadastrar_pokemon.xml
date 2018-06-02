@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CadastrarPokemon"
+    android:background="@drawable/backgroundcinza">
+
+
+
+
+    <EditText
+        android:id="@+id/nomePokemon"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="182dp"
+        android:drawableLeft="@drawable/baseline_person_white_24dp"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/baseline_person_white_24dp"
+        android:ems="10"
+        android:hint="Nome Pokemon"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/especiePokemon"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="221dp"
+        android:drawableLeft="@drawable/baseline_fingerprint_white_24dp"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/baseline_fingerprint_white_24dp"
+        android:ems="10"
+        android:hint="Espécie Pokemon"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/pesoPokemon"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="159dp"
+        android:drawableLeft="@drawable/baseline_local_dining_white_24dp"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/baseline_local_dining_white_24dp"
+        android:ems="10"
+        android:hint="Peso Pokemon"
+        android:inputType="text|numberDecimal" />
+
+    <EditText
+        android:id="@+id/alturaPokemon"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="96dp"
+        android:drawableLeft="@drawable/baseline_accessibility_white_24dp"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/baseline_accessibility_white_24dp"
+        android:ems="10"
+        android:hint="Altura Pokemon"
+        android:inputType="text|numberDecimal" />
+
+    <Button
+        android:id="@+id/cadastrarButton"
+        android:layout_width="354dp"
+        android:layout_height="66dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_button_login"
+        android:onClick="cadastrarPokemon"
+        android:text="@string/button_cadastrar" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/nomePokemon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-182dp"
+        android:background="@color/transparente"
+        android:src="@drawable/camerarealoficial" />
+
+</RelativeLayout>

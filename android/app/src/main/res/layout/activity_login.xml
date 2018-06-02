@@ -25,7 +25,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="120dp"
         android:background="@drawable/rounded_button_login"
-        android:text="@string/button_login" />
+        android:text="@string/button_login"
+        android:onClick="logar"/>
 
     <Button
         android:id="@+id/logoutButton"
@@ -44,8 +45,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/senhaLogin"
         android:layout_centerHorizontal="true"
-        android:drawableStart="@drawable/baseline_person_white_24dp"
-        android:drawableLeft="@drawable/baseline_person_white_24dp"
+        android:drawableStart="@drawable/baseline_email_white_24dp"
+        android:drawableLeft="@drawable/baseline_email_white_24dp"
         android:drawablePadding="5dp"
         android:ems="10"
         android:hint="E-mail"
