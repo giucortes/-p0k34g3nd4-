@@ -17,11 +17,6 @@ public class Detalhe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhe);
 
-        ImageView imageView = (ImageView) findViewById(R.id.pokemonImagemCadastrado);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
-        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-        roundedBitmapDrawable.setCircular(true);
-        imageView.setImageDrawable(roundedBitmapDrawable);
     }
 }
