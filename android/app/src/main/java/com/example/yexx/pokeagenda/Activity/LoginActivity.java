@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.yexx.pokeagenda.DAO.ConfiguracaoFirebase;
 import com.example.yexx.pokeagenda.Model.Treinadores;
 import com.example.yexx.pokeagenda.R;
+import com.example.yexx.pokeagenda.Tools.Session;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth autenticacao;
     private Treinadores treinadores;
     private ProgressDialog progressDialog;
+    private Session session;//global variable
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    session = new Session(LoginActivity.this.getApplicationContext());
+                    session.setUser(treinadores);
+
                     abrirTelaPrincipal();
                     Toast.makeText(LoginActivity.this, "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
                 }else{

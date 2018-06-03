@@ -20,7 +20,9 @@ import android.widget.Toast;
 
 import com.example.yexx.pokeagenda.DAO.ConfiguracaoFirebase;
 import com.example.yexx.pokeagenda.Model.Pokemon;
+import com.example.yexx.pokeagenda.Model.Treinadores;
 import com.example.yexx.pokeagenda.R;
+import com.example.yexx.pokeagenda.Tools.Session;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -42,8 +44,7 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
     private DatabaseReference firebase;
     private Uri filePath;
     private String path;
-    private boolean sucessinho;
-    private boolean errinho;
+    private Session session;
     private final int PICK_IMAGE_REQUEST = 71;
 
     //Firebase variável
@@ -161,6 +162,10 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
         pokemon.setEspecie(especiePokemon.getText().toString());
         pokemon.setPeso(Double.valueOf(pesoPokemon.getText().toString()));
         pokemon.setAltura(Double.valueOf(alturaPokemon.getText().toString()));
+
+        session = new Session(CadastrarPokemonActivity.this.getApplicationContext());
+        Treinadores trainer = session.getUser();
+        pokemon.setTreinadorCadastrou(trainer);
 
         pokemon.setFoto(imgPath);
         salvarPokemon(pokemon);

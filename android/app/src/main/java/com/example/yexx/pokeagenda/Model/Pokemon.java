@@ -14,7 +14,7 @@ public class Pokemon {
     private String foto;
     private double peso;
     private double altura;
-    private String treinadorCadastrou;
+    private Treinadores treinadorCadastrou;
 
     public Pokemon() {
     }
@@ -59,11 +59,11 @@ public class Pokemon {
         this.altura = altura;
     }
 
-    public String getTreinadorCadastrou() {
+    public Treinadores getTreinadorCadastrou() {
         return treinadorCadastrou;
     }
 
-    public void setTreinadorCadastrou(String treinadorCadastrou) {
+    public void setTreinadorCadastrou(Treinadores treinadorCadastrou) {
         this.treinadorCadastrou = treinadorCadastrou;
     }
 }
