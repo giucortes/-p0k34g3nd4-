@@ -38,6 +38,8 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
     private Pokemon pokemon;
     private DatabaseReference firebase;
     private Uri filePath;
+    private boolean sucessinho;
+    private boolean errinho;
     private final int PICK_IMAGE_REQUEST = 71;
 
     //Firebase variável
@@ -52,7 +54,7 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
         /* Pega a ação de clicar no menu id cadastrar_menu e traz para a tela CadastrarPokemonActivity */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /* TODO: TEM QUE INCLUIR A VALIDAÇÃO DOS CAMPOS E ZERAR O FORMULÁRIO QUANDO TERMINA DE CADASTRAR */
+        /* TODO: TEM QUE PASSAR O NOME DO TREINADOR QUE CADASTROU O POKEMON. TEM QUE INCLUIR A VALIDAÇÃO DOS CAMPOS E ZERAR O FORMULÁRIO QUANDO TERMINA DE CADASTRAR */
 
         // Init Firebase
 
@@ -89,7 +91,10 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
                 pokemon.setAltura(Double.valueOf(alturaPokemon.getText().toString()));
 
 
-                enviarImagem();
+                String uriImagem = enviarImagem();
+                Toast.makeText(CadastrarPokemonActivity.this, "AQUI PORRA", Toast.LENGTH_SHORT).show();
+                Uri uri = new Uri.Builder().path(uriImagem).build();
+                pokemon.setFoto(uri);
                 salvarPokemon(pokemon);
 
             }
@@ -122,17 +127,22 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Imagem Selecionada"), PICK_IMAGE_REQUEST);
     }
 
-    private void enviarImagem(){
+    private String enviarImagem(){
         if (filePath != null){
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Enviando...");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+            String path = "images/" + UUID.randomUUID().toString();
+            sucessinho = false;
+            errinho = false;
+
+            StorageReference ref = storageReference.child(path);
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
+                    sucessinho = true;
                     Toast.makeText(CadastrarPokemonActivity.this, "Imagem enviada", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -140,6 +150,7 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
                     Toast.makeText(CadastrarPokemonActivity.this, "Falhou em carregar imagem." +e.getMessage(), Toast.LENGTH_SHORT).show();
+                    errinho = true;
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -148,7 +159,16 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
                     progressDialog.setMessage("Enviada"+(int)progress+"%");
                 }
             });
+
+            while (!sucessinho && !errinho){
+                if (!progressDialog.isShowing()) break;
+            }
+            if (sucessinho){
+                return path;
+            }
         }
+
+        return null;
     }
 
     @Override

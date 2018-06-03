@@ -1,5 +1,7 @@
 package com.example.yexx.pokeagenda.Model;
 
+import android.net.Uri;
+
 /**
  * Created by gazip on 30/05/2018.
  */
@@ -7,7 +9,7 @@ package com.example.yexx.pokeagenda.Model;
 public class Pokemon {
     private String nome;
     private String especie;
-    private int foto;
+    private Uri foto;
     private double peso;
     private double altura;
     private String treinadorCadastrou;
@@ -31,11 +33,11 @@ public class Pokemon {
         this.especie = especie;
     }
 
-    public int getFoto() {
+    public Uri getFoto() {
         return foto;
     }
 
-    public void setFoto(int foto) {
+    public void setFoto(Uri foto) {
         this.foto = foto;
     }
 
