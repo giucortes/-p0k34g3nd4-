@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.CadastrarPokemonActivity"
-    android:background="@drawable/backgroundcinza">
-
-
+    tools:context=".Activity.CadastrarPokemonActivity"
+    android:background="@drawable/bg" >
 
 
     <EditText
@@ -67,7 +65,7 @@
         android:inputType="text|numberDecimal" />
 
     <Button
-        android:id="@+id/cadastrarButton"
+        android:id="@+id/cadastrarPokemonButton"
         android:layout_width="354dp"
         android:layout_height="66dp"
         android:layout_alignParentBottom="true"
@@ -77,14 +75,26 @@
         android:onClick="cadastrarPokemon"
         android:text="@string/button_cadastrar" />
 
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/nomePokemon"
+    <Button
+        android:id="@+id/imagemPokemonButton"
+        android:layout_width="228dp"
+        android:layout_height="147dp"
+        android:layout_alignStart="@+id/imagemCarregada"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="14dp"
+        android:alpha="0.00"
+        android:color="#66FF0000"
+        android:text="Carregar imagem..." />
+
+    <ImageView
+        android:id="@+id/imagemCarregada"
+        android:layout_width="229dp"
+        android:layout_height="148dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-182dp"
-        android:background="@color/transparente"
-        android:src="@drawable/camerarealoficial" />
+        android:layout_marginTop="14dp"
+        android:src="@color/colorPrimary" />
+
 
 </RelativeLayout>

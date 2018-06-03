@@ -3,6 +3,7 @@
     package="com.example.yexx.pokeagenda">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -11,26 +12,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PokeAgenda">
-        <activity android:name=".Controller.LoginActivity">
+        <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Controller.DetalheActivity" />
+        <activity android:name=".Activity.DetalheActivity" />
         <!-- Activities Menu -->
-        <activity android:name=".Controller.ConsultarPokemonActivity"
+        <activity android:name=".Activity.ConsultarPokemonActivity"
             android:label="@string/menu_primeira_opcao"
-            android:parentActivityName=".Controller.WelcomeActivity" />
-        <activity android:name=".Controller.CadastrarPokemonActivity"
+            android:parentActivityName=".Activity.WelcomeActivity" />
+        <activity android:name=".Activity.CadastrarPokemonActivity"
             android:label="@string/menu_segunda_opcao"
-            android:parentActivityName=".Controller.WelcomeActivity"/>
-        <activity android:name=".Controller.PesquisarPokemonActivity"
+            android:parentActivityName=".Activity.WelcomeActivity"/>
+        <activity android:name=".Activity.PesquisarPokemonActivity"
             android:label="@string/menu_terceira_opcao"
-            android:parentActivityName=".Controller.WelcomeActivity"/>
+            android:parentActivityName=".Activity.WelcomeActivity"/>
         <!-- - -->
-        <activity android:name=".Controller.WelcomeActivity"></activity>
+        <activity android:name=".Activity.WelcomeActivity"></activity>
     </application>
 
 </manifest>

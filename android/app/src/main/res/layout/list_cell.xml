@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
-        android:id="@+id/imagemPoke"
+        android:id="@+id/imagemPokemonLista"
         android:layout_width="100dp"
         android:layout_height="100dp" />
     <LinearLayout
@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/nomePoke"
+            android:id="@+id/nomePokemonLista"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:padding="5dp"
@@ -22,7 +22,7 @@
             android:textColor="@color/texto_destaque_lista"
             android:text="Nome Pokemon" />
         <TextView
-            android:id="@+id/nomeTreina"
+            android:id="@+id/nomeTreinadorLista"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:padding="5dp"

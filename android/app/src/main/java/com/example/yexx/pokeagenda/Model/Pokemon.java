@@ -7,10 +7,13 @@ package com.example.yexx.pokeagenda.Model;
 public class Pokemon {
     private String nome;
     private String especie;
-    private String foto;
+    private int foto;
     private double peso;
     private double altura;
     private String treinadorCadastrou;
+
+    public Pokemon() {
+    }
 
     public String getNome() {
         return nome;
@@ -28,11 +31,11 @@ public class Pokemon {
         this.especie = especie;
     }
 
-    public String getFoto() {
+    public int getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(int foto) {
         this.foto = foto;
     }
 

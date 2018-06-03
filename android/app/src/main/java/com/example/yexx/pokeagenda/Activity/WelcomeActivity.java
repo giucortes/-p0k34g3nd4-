@@ -1,4 +1,4 @@
-package com.example.yexx.pokeagenda.Controller;
+package com.example.yexx.pokeagenda.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
