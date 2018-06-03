@@ -41,7 +41,9 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
 
             Pokemon pokemon2 = pokemon.get(position);
             nomePokemonLista.setText(pokemon2.getNome());
-            nomeTreinadorLista.setText(pokemon2.getTreinadorCadastrou().getEmail());    // TODO colocar nome
+            if (pokemon2.getTreinadorCadastrou() != null) {
+                nomeTreinadorLista.setText(pokemon2.getTreinadorCadastrou().getEmail());    // TODO colocar nome
+            }
             imagemPokemonLista.setImageURI( new Uri.Builder().path(pokemon2.getFoto()).build() );
         }
         return view;
