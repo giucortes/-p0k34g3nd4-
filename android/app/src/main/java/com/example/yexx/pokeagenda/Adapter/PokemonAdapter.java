@@ -1,6 +1,7 @@
 package com.example.yexx.pokeagenda.Adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
             Pokemon pokemon2 = pokemon.get(position);
             nomePokemonLista.setText(pokemon2.getNome());
             nomeTreinadorLista.setText(pokemon2.getTreinadorCadastrou());
-            imagemPokemonLista.setImageURI(pokemon2.getFoto());
+            imagemPokemonLista.setImageURI( new Uri.Builder().path(pokemon2.getFoto()).build() );
         }
         return view;
     }

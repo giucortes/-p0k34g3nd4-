@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +30,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.UUID;
 
 public class CadastrarPokemonActivity extends AppCompatActivity {
@@ -38,6 +41,7 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
     private Pokemon pokemon;
     private DatabaseReference firebase;
     private Uri filePath;
+    private String path;
     private boolean sucessinho;
     private boolean errinho;
     private final int PICK_IMAGE_REQUEST = 71;
@@ -60,6 +64,8 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+
+        path = null;
 
         // Init View
         nomePokemon = (EditText) findViewById(R.id.nomePokemon);
@@ -85,21 +91,10 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
         cadastrarPokemonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pokemon.setNome(nomePokemon.getText().toString());
-                pokemon.setEspecie(especiePokemon.getText().toString());
-                pokemon.setPeso(Double.valueOf(pesoPokemon.getText().toString()));
-                pokemon.setAltura(Double.valueOf(alturaPokemon.getText().toString()));
 
-
-                String uriImagem = enviarImagem();
-                Toast.makeText(CadastrarPokemonActivity.this, "AQUI PORRA", Toast.LENGTH_SHORT).show();
-                Uri uri = new Uri.Builder().path(uriImagem).build();
-                pokemon.setFoto(uri);
-                salvarPokemon(pokemon);
-
+                enviarImagemSalvarPoke();
             }
         });
-
 
     }
 
@@ -127,30 +122,27 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Imagem Selecionada"), PICK_IMAGE_REQUEST);
     }
 
-    private String enviarImagem(){
+    private void enviarImagemSalvarPoke(){
         if (filePath != null){
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Enviando...");
             progressDialog.show();
 
-            String path = "images/" + UUID.randomUUID().toString();
-            sucessinho = false;
-            errinho = false;
+            path = "images/" + UUID.randomUUID().toString();
 
             StorageReference ref = storageReference.child(path);
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
-                    sucessinho = true;
                     Toast.makeText(CadastrarPokemonActivity.this, "Imagem enviada", Toast.LENGTH_SHORT).show();
+                    salvarPoke(path);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
                     Toast.makeText(CadastrarPokemonActivity.this, "Falhou em carregar imagem." +e.getMessage(), Toast.LENGTH_SHORT).show();
-                    errinho = true;
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -160,15 +152,18 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
                 }
             });
 
-            while (!sucessinho && !errinho){
-                if (!progressDialog.isShowing()) break;
-            }
-            if (sucessinho){
-                return path;
-            }
         }
 
-        return null;
+    }
+
+    private void salvarPoke(String imgPath){
+        pokemon.setNome(nomePokemon.getText().toString());
+        pokemon.setEspecie(especiePokemon.getText().toString());
+        pokemon.setPeso(Double.valueOf(pesoPokemon.getText().toString()));
+        pokemon.setAltura(Double.valueOf(alturaPokemon.getText().toString()));
+
+        pokemon.setFoto(imgPath);
+        salvarPokemon(pokemon);
     }
 
     @Override
