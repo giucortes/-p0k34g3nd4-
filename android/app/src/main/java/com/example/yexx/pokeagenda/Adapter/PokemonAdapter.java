@@ -1,29 +1,26 @@
 package com.example.yexx.pokeagenda.Adapter;
 
 import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yexx.pokeagenda.Model.Pokemon;
 import com.example.yexx.pokeagenda.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
+public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder> {
 
-public class PokemonAdapter extends ArrayAdapter<Pokemon> {
 
     private ArrayList<Pokemon> pokemon;
     private Context context;
@@ -32,50 +29,58 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
     private FirebaseStorage storage;
     private StorageReference storageRef;
 
-    public PokemonAdapter(Context c, ArrayList<Pokemon> objects) {
-        super(c,0, objects);
-        this.context = c;
-        this.pokemon = objects;
+    public PokemonAdapter(Context c, ArrayList<Pokemon> pokemons) {
+        context = c;
+        pokemon = pokemons;
         // Init Firebase
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public PokemonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.lista_item, parent, false);
 
-        View view = null;
 
-        if(pokemon != null){
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_cell, parent, false);
 
-            imagemPokemonLista = (ImageView) view.findViewById(R.id.imagemPokemonLista);
-            TextView nomePokemonLista = (TextView) view.findViewById(R.id.nomePokemonLista);
-            TextView  nomeTreinadorLista = (TextView) view.findViewById(R.id.nomeTreinadorLista);
+        return new PokemonViewHolder(view);
+
+
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull PokemonViewHolder holder, int position) {
 
             Pokemon pokemon2 = pokemon.get(position);
-            nomePokemonLista.setText(pokemon2.getNome());
-            if (pokemon2.getTreinadorCadastrou() != null) {
-                nomeTreinadorLista.setText(pokemon2.getTreinadorCadastrou().getEmail());    // TODO colocar nome
-            }
+            holder.txtnomePokemonLista.setText(pokemon2.getNome());
+            Picasso.with(context).load(pokemon2.getFotoUrl()).placeholder(R.mipmap.ic_launcher).fit().centerCrop().into(holder.imagemLista);
 
-            // pegar URL de download
-            Log.d("PIC", pokemon2.getFoto());
-            storageRef.child( pokemon2.getFoto() ).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    imagemPokemonLista.setImageURI( uri );
-                    Log.d("URI", uri.toString());
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    exception.printStackTrace();
-                }
-            });
-
+        if (pokemon2.getTreinadorCadastrou() != null) {
+            holder.txtnomeTreinadorLista.setText(pokemon2.getTreinadorCadastrou().getEmail());    // TODO colocar nome
         }
-        return view;
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return pokemon.size();
+    }
+
+    public class PokemonViewHolder extends RecyclerView.ViewHolder{
+
+        public TextView txtnomePokemonLista;
+        public TextView txtnomeTreinadorLista;
+        public ImageView imagemLista;
+
+
+
+        public PokemonViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            txtnomePokemonLista = itemView.findViewById(R.id.nomePokemonLista);
+            txtnomeTreinadorLista = itemView.findViewById(R.id.nomeTreinadorLista);
+            imagemLista = itemView.findViewById(R.id.imagemPokemonLista);
+        }
     }
 }

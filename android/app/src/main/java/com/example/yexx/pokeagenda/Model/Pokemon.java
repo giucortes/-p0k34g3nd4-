@@ -11,7 +11,7 @@ import java.net.URI;
 public class Pokemon {
     private String nome;
     private String especie;
-    private String foto;
+    private String fotoUrl;
     private double peso;
     private double altura;
     private Treinadores treinadorCadastrou;
@@ -35,12 +35,12 @@ public class Pokemon {
         this.especie = especie;
     }
 
-    public String getFoto() {
-        return foto;
+    public String getFotoUrl() {
+        return fotoUrl;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public void setFotoUrl(String foto) {
+        this.fotoUrl = foto;
     }
 
     public double getPeso() {

@@ -1,10 +1,13 @@
 package com.example.yexx.pokeagenda.Activity;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.yexx.pokeagenda.Adapter.PokemonAdapter;
 import com.example.yexx.pokeagenda.DAO.ConfiguracaoFirebase;
@@ -17,31 +20,30 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-
 public class ConsultarPokemonActivity extends AppCompatActivity {
-    private  ListView listView;
-    private ArrayAdapter<Pokemon> adapter;
+
+    private RecyclerView recyclerView;
+    private PokemonAdapter pokeAdapter;
     private ArrayList<Pokemon> pokemon;
     private DatabaseReference firebase;
     private ValueEventListener valueEventListenerPokemon;
+    private ProgressBar progressCircle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_consultar_pokemon);
+        setContentView(R.layout.activity_consultar);
 
         /* Pega a ação de clicar no menu id consultar_menu e traz para a tela ConsultarPokemonActivity */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        recyclerView = findViewById(R.id.recycle_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        progressCircle = findViewById(R.id.progress_circular);
 
         pokemon = new ArrayList<>();
-        listView = (ListView) findViewById(R.id.listaPokemon);
-        adapter = new PokemonAdapter(this, pokemon);
-
-        listView.setAdapter(adapter);
-
         firebase = ConfiguracaoFirebase.getFirebase().child("pokemons");
 
         valueEventListenerPokemon = new ValueEventListener() {
@@ -55,22 +57,21 @@ public class ConsultarPokemonActivity extends AppCompatActivity {
                     pokemon.add(novoPokemon);
                 }
 
-                adapter.notifyDataSetChanged();
+                pokeAdapter = new PokemonAdapter(ConsultarPokemonActivity.this, pokemon);
+                recyclerView.setAdapter(pokeAdapter);
+                progressCircle.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Toast.makeText(ConsultarPokemonActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                progressCircle.setVisibility(View.INVISIBLE);
             }
         };
 
-        /*
-        Integer[] imagens = {0};
-        String[] nomes = {"nome"};
-        String[] treinas = {"treina"};
-        this.popularListaPokemon(imagens, nomes, treinas);
-        */
+
     }
+
 
     @Override
     protected void onStop() {
@@ -83,18 +84,4 @@ public class ConsultarPokemonActivity extends AppCompatActivity {
         firebase.addValueEventListener(valueEventListenerPokemon);
         super.onStart();
     }
-
-    /* public void popularListaPokemon(Integer[] imagem, String[] nomePoke, String[] nomeTreina){
-        ListCell adapter = new ListCell(ConsultarPokemonActivity.this, imagem, nomePoke, nomeTreina);
-        listView = (ListView)findViewById(R.id.listaPokemon);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(ConsultarPokemonActivity.this, "clicou", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
-
-
 }
