@@ -30,13 +30,8 @@
             android:name=".Activity.CadastrarPokemonActivity"
             android:label="@string/menu_segunda_opcao"
             android:parentActivityName=".Activity.WelcomeActivity" />
-        <activity
-            android:name=".Activity.PesquisarPokemonActivity"
-            android:label="@string/menu_terceira_opcao"
-            android:parentActivityName=".Activity.WelcomeActivity" />
         <!-- - -->
         <activity android:name=".Activity.WelcomeActivity" />
-        <activity android:name=".Activity.ConsultarPokemonActivity"></activity>
     </application>
 
 </manifest>

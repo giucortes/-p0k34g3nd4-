@@ -11,14 +11,9 @@
         android:showAsAction="never"
         android:title="@string/menu_segunda_opcao" />
     <item
-        android:id="@+id/pesquisar_menu"
-        android:showAsAction="never"
-        android:title="@string/menu_terceira_opcao"
-        />
-    <item
         android:id="@+id/logout"
         android:showAsAction="never"
-        android:title="@string/menu_quarta_opcao"
+        android:title="@string/menu_terceira_opcao"
         />
 
 </menu>

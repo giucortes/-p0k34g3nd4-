@@ -4,7 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".Activity.ConsultarPokemonActivity">
+
+    <EditText
+        android:id="@+id/pesquisarEdt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/search_layout"
+        android:ems="20"
+        android:hint="Buscar pokemon por nome"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:textColor="#999999"
+        android:textSize="16sp" />
 
     <ProgressBar
         android:id="@+id/progress_circular"
@@ -15,5 +34,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/pesquisarEdt"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp"></androidx.recyclerview.widget.RecyclerView>
+
 </RelativeLayout>

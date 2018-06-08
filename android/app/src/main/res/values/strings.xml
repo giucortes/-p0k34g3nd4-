@@ -11,7 +11,6 @@
     <string name="menu">Menu</string>
     <string name="menu_primeira_opcao">Consultar Pokemon</string>
     <string name="menu_segunda_opcao">Cadastrar Pokemon</string>
-    <string name="menu_terceira_opcao">Pesquisar Pokemon</string>
-    <string name="menu_quarta_opcao">Sair</string>
+    <string name="menu_terceira_opcao">Sair</string>
 
 </resources>

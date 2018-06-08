@@ -37,10 +37,6 @@ public class WelcomeActivity extends AppCompatActivity {
                  Intent intent2 = new Intent(this, CadastrarPokemonActivity.class);
                  this.startActivity(intent2);
                  return true;
-             case R.id.pesquisar_menu:
-                 Intent intent3 = new Intent(this,PesquisarPokemonActivity.class);
-                 this.startActivity(intent3);
-                 return true;
              default:
                  return super.onOptionsItemSelected(item);
          }

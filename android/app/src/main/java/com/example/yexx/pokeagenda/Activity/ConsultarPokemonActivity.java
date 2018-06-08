@@ -1,11 +1,16 @@
 package com.example.yexx.pokeagenda.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -22,6 +27,7 @@ import java.util.ArrayList;
 
 public class ConsultarPokemonActivity extends AppCompatActivity {
 
+    EditText pesquisarPokemon;
     private RecyclerView recyclerView;
     private PokemonAdapter pokeAdapter;
     private ArrayList<Pokemon> pokemon;
@@ -37,14 +43,34 @@ public class ConsultarPokemonActivity extends AppCompatActivity {
         /* Pega a ação de clicar no menu id consultar_menu e traz para a tela ConsultarPokemonActivity */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        pesquisarPokemon = (EditText) findViewById(R.id.pesquisarEdt);
         recyclerView = findViewById(R.id.recycle_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
         progressCircle = findViewById(R.id.progress_circular);
 
         pokemon = new ArrayList<>();
         firebase = ConfiguracaoFirebase.getFirebase().child("pokemons");
+
+        pesquisarPokemon.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                setAdapterPesquisar(editable.toString());
+            }
+        });
 
         valueEventListenerPokemon = new ValueEventListener() {
             @Override
@@ -84,4 +110,56 @@ public class ConsultarPokemonActivity extends AppCompatActivity {
         firebase.addValueEventListener(valueEventListenerPokemon);
         super.onStart();
     }
+
+    private void setAdapterPesquisar(final String searchedString) {
+        firebase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                /*
+                 * Limpar lista para cada pesquisa nova
+                 * */
+                pokemon.clear();
+                recyclerView.removeAllViews();
+
+                int counter = 0;
+
+                /*
+                 * Procura todos os pokemons que batam com o valor inserido na busca
+                 * */
+                for (DataSnapshot dadosfirebase : dataSnapshot.getChildren()) {
+
+                    Pokemon pokemonItem = dadosfirebase.getValue(Pokemon.class);
+
+                    if(!searchedString.isEmpty()){
+
+                        if (pokemonItem.getNome().toLowerCase().contains(searchedString.toLowerCase())) {
+                            pokemon.add(pokemonItem);
+                            counter++;
+                        } else if (pokemonItem.getNome().toLowerCase().contains(searchedString.toLowerCase())) {
+                            pokemon.add(pokemonItem);
+                            counter++;
+                        }
+
+                    }else{
+                        pokemon.add(pokemonItem);
+                    }
+
+                    /*
+                     * Pega no maximo 15 resultados
+                     * */
+                    if (counter == 15)
+                        break;
+                    }
+
+                pokeAdapter = new PokemonAdapter(ConsultarPokemonActivity.this, pokemon);
+                recyclerView.setAdapter(pokeAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }
