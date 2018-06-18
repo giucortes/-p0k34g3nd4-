@@ -2,12 +2,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg">
 
 
     <ImageView
+        android:id="@+id/imagemPokemonFavoritoView"
         android:layout_width="208dp"
         android:layout_height="151dp"
         android:layout_alignParentTop="true"
@@ -19,20 +21,24 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="226dp"
         android:fontFamily="@font/questrialregular"
         android:text="@string/welcome"
         android:textSize="30sp" />
 
     <TextView
         android:id="@+id/nomeTreinador"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="317dp"
+        android:layout_height="164dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="190dp"
+        android:layout_marginBottom="67dp"
+        android:autoText="false"
         android:fontFamily="@font/latobold"
-        android:text="Azuliana"
+        android:text="Treinador"
+        android:textAlignment="center"
         android:textSize="25sp" />
 
 </RelativeLayout>

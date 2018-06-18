@@ -3,20 +3,58 @@ package com.example.yexx.pokeagenda.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.yexx.pokeagenda.DAO.ConfiguracaoFirebase;
+import com.example.yexx.pokeagenda.Model.Pokemon;
+import com.example.yexx.pokeagenda.Model.Treinadores;
 import com.example.yexx.pokeagenda.R;
+import com.example.yexx.pokeagenda.Tools.CircleTransform;
+import com.example.yexx.pokeagenda.Tools.Session;
+import com.google.android.material.shape.RoundedCornerTreatment;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class WelcomeActivity extends AppCompatActivity {
+
+    private Session session;
+    private Treinadores treinador;
+
+    private String treinadorNome;
+    private String treinadorPokemonFavorito;
+
+    private ImageView imgPokemonFavorito;
+    private TextView txtNomeTreinador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        txtNomeTreinador = (TextView) findViewById(R.id.nomeTreinador);
+        imgPokemonFavorito = (ImageView) findViewById(R.id.imagemPokemonFavoritoView);
+
+        setFotoPokemonFavorito();
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        setFotoPokemonFavorito();
     }
 
     @Override
@@ -40,6 +78,46 @@ public class WelcomeActivity extends AppCompatActivity {
              default:
                  return super.onOptionsItemSelected(item);
          }
+    }
+
+    public void setFotoPokemonFavorito(){
+        //getUsuario
+        session = new Session(WelcomeActivity.this.getApplicationContext());
+        treinador = session.getUser();
+
+        treinadorNome= treinador.getNomeTreinador();
+        treinadorPokemonFavorito = treinador.getPokemonFavorito();
+
+        if(session.getUser() != null) {
+            txtNomeTreinador.setText(treinadorNome);
+        }
+
+        if(treinador.getPokemonFavorito() != null) {
+            if (!treinador.getPokemonFavorito().equals("")) {
+
+                DatabaseReference pokemon = ConfiguracaoFirebase.getFirebase().child("pokemons").child(treinadorPokemonFavorito);
+                pokemon.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Pokemon pokemonFavorito = dataSnapshot.getValue(Pokemon.class);
+                        Log.d("TREINADOR FAVORITO FOTO", pokemonFavorito.getFotoUrl());
+                        Picasso.with(WelcomeActivity.this.getApplicationContext())
+                                .load(pokemonFavorito.getFotoUrl())
+                                .placeholder(R.drawable.pokeicon)
+                                .fit()
+                                .centerInside()
+                                .transform(new CircleTransform())
+                                .into(imgPokemonFavorito);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Toast.makeText(WelcomeActivity.this, "Erro: " + databaseError, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+
     }
 
 

@@ -14,6 +14,7 @@ public class Pokemon {
     private String fotoUrl;
     private double peso;
     private double altura;
+    private String idTreinador;
     private Treinadores treinadorCadastrou;
 
     public Pokemon() {

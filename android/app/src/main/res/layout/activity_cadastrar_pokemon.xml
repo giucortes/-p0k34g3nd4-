@@ -75,26 +75,36 @@
         android:onClick="cadastrarPokemon"
         android:text="@string/button_cadastrar" />
 
-    <Button
-        android:id="@+id/imagemPokemonButton"
-        android:layout_width="228dp"
-        android:layout_height="147dp"
-        android:layout_alignStart="@+id/imagemCarregada"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="14dp"
-        android:alpha="0.00"
-        android:color="#66FF0000"
-        android:text="Carregar imagem..." />
 
     <ImageView
         android:id="@+id/imagemCarregada"
-        android:layout_width="229dp"
-        android:layout_height="148dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
+        android:layout_marginStart="193dp"
+        android:layout_marginTop="22dp"
         android:src="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/imagemGaleriaButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="46dp"
+        android:text="Buscar Imagem" />
+
+    <Button
+        android:id="@+id/imagemCameraButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imagemGaleriaButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Tirar Foto" />
 
 
 </RelativeLayout>

@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="472dp"
+        android:layout_marginTop="466dp"
         android:fontFamily="@font/latobold"
         android:text="Nome do Treinador"
         android:textColor="@color/texto_destaque_lista"
@@ -118,13 +118,13 @@
         app:srcCompat="@drawable/detalhesborda" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/favoritarButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="-59dp"
-        android:layout_marginBottom="217dp"
-        android:layout_toStartOf="@+id/textView5"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="222dp"
         android:clickable="true"
         app:backgroundTint="@color/colorPrimaryDark"
         app:srcCompat="@android:drawable/btn_star_big_off" />

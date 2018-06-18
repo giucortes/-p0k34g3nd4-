@@ -3,23 +3,13 @@ package com.example.yexx.pokeagenda.Model;
 
 public class Treinadores {
 
-    private String idTreinador;
     private String nomeTreinador;
     private String email;
     private String senha;
+    private String pokemonFavorito;
 
 
     public Treinadores() {
-;
-    }
-
-    public String getIdTreinador() {
-        return idTreinador;
-
-    }
-
-    public void setIdTreinador(String idTreinador) {
-        this.idTreinador = idTreinador;
     }
 
     public String getNomeTreinador() {
@@ -44,5 +34,13 @@ public class Treinadores {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getPokemonFavorito() {
+        return pokemonFavorito;
+    }
+
+    public void setPokemonFavorito(String pokemonFavorito) {
+        this.pokemonFavorito = pokemonFavorito;
     }
 }
