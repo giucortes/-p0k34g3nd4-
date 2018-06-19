@@ -25,7 +25,11 @@ import com.example.yexx.pokeagenda.Tools.CircleTransform;
 import com.example.yexx.pokeagenda.Tools.Session;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -57,6 +61,7 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
     private Uri filePath;
     private String path;
     private Session session;
+    private boolean pokemonJaExiste;
     private final int PICK_IMAGE_REQUEST = 71;
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
@@ -131,8 +136,13 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
                 String alturaTv = alturaPokemon.getText().toString();
                 Double alturaValidacao = !alturaTv.equals("") ? Double.parseDouble(alturaTv) : -1.0;
 
+                verificaPokemon();
+
                 if(nomePokemon.getText().toString().equals("")) {
                     Toast.makeText(CadastrarPokemonActivity.this, "Favor inserir um nome", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (pokemonJaExiste = true) {
+                    Toast.makeText(CadastrarPokemonActivity.this, "Este pokemon ja existe", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (especiePokemon.getText().toString().equals("")) {
                     Toast.makeText(CadastrarPokemonActivity.this, "Favor inserir uma especie", Toast.LENGTH_SHORT).show();
@@ -309,6 +319,30 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
                     .transform(new CircleTransform())
                     .into(imagemCarregada);
         }
+
+    }
+
+    //Valida se o pokemon cadastrado ja existe no banco
+    private boolean verificaPokemon() {
+
+        //Passa a o nome do poke q ta na chave no database
+        DatabaseReference consultaPokemon = ConfiguracaoFirebase.getFirebase().child("pokemons").child(nomePokemon.getText().toString());
+        consultaPokemon.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //verifica se já existe
+                if (dataSnapshot.exists()) {
+                    pokemonJaExiste = true;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        return pokemonJaExiste;
 
     }
 

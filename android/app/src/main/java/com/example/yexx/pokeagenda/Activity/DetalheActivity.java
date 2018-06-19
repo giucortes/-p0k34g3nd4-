@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yexx.pokeagenda.DAO.ConfiguracaoFirebase;
+import com.example.yexx.pokeagenda.Model.Pokemon;
 import com.example.yexx.pokeagenda.Model.Treinadores;
 import com.example.yexx.pokeagenda.R;
 import com.example.yexx.pokeagenda.Tools.CircleTransform;
@@ -19,7 +21,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.nio.LongBuffer;
@@ -119,6 +124,7 @@ public class DetalheActivity extends AppCompatActivity {
 
     }
 
+    //Se pokemon do banco é igual ao pokemon favoritado entao marca a estrelinha amarela
     public boolean comparaPokemon(String pokemonAtual, String pokemonFavorito){
 
         if (pokemonAtual.equals(pokemonFavorito)) {
@@ -127,4 +133,5 @@ public class DetalheActivity extends AppCompatActivity {
         }
         return false;
     }
+
 }

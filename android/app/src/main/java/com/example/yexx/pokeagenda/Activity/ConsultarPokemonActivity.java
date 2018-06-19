@@ -134,7 +134,7 @@ public class ConsultarPokemonActivity extends AppCompatActivity {
 
                     if(!searchedString.isEmpty()){
 
-                        //Se o nome do pokemon encontrado for igual ao que ta digftado ele adiciona no arraylist
+                        //Se o nome do pokemon encontrado for igual ao que ta digitado ele adiciona no arraylist
                         if (pokemonItem.getNome().toLowerCase().contains(searchedString.toLowerCase())) {
                             pokemon.add(pokemonItem);
                             counter++;
