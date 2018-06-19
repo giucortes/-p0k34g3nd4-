@@ -75,6 +75,14 @@ public class WelcomeActivity extends AppCompatActivity {
                  Intent intent2 = new Intent(this, CadastrarPokemonActivity.class);
                  this.startActivity(intent2);
                  return true;
+             case R.id.logout:
+                 Intent intent3 = new Intent(this, LoginActivity.class);
+                 if (session.logout()) {
+                     Toast.makeText(WelcomeActivity.this.getApplicationContext(), "Logout feito com sucesso", Toast.LENGTH_SHORT);
+                     this.startActivity(intent3);
+                     return true;
+                 }
+                 return false;
              default:
                  return super.onOptionsItemSelected(item);
          }

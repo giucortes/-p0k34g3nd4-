@@ -26,6 +26,11 @@ public class Session {
         gson = new Gson();
     }
 
+    public boolean isLogged(){
+        String user = prefs.getString(TRAINER,"");
+        return user != null;
+    }
+
     public void setUser(Treinadores trainer) {
         String strTrainer = gson.toJson(trainer);
         prefs.edit().putString(TRAINER, strTrainer).commit();
@@ -36,4 +41,9 @@ public class Session {
         Treinadores trainer = gson.fromJson(json, Treinadores.class);
         return trainer;
     }
+
+    public boolean logout() {
+        return prefs.edit().putString(TRAINER, null).commit();
+    }
+
 }
