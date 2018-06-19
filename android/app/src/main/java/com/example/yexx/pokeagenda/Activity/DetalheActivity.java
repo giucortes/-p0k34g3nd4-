@@ -82,13 +82,15 @@ public class DetalheActivity extends AppCompatActivity {
         txtPesoPokemon.setText(pesoP);
         txtNomeTreinador.setText(treinadorP);
 
-        final String treinadorPokemonFavorito = treinador.getPokemonFavorito();
-
+        String treinadorPokemonFavorito = treinador.getPokemonFavorito();
         comparaPokemon(nomeP,treinadorPokemonFavorito);
 
         favoritarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                treinador = session.getUser();
+                String treinadorPokemonFavorito = treinador.getPokemonFavorito();
 
                 autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
                 FirebaseUser treinadorLogado = autenticacao.getCurrentUser();
@@ -100,23 +102,25 @@ public class DetalheActivity extends AppCompatActivity {
                     firebase.child(treinadorId).child("pokemonFavorito").setValue(nomeP);
                     favoritarButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.btn_star_big_on));
                     treinador.setPokemonFavorito(nomeP);
+                    Snackbar.make(view, "Pokémon escolhido como favorito", Snackbar.LENGTH_SHORT)
+                            .setAction("Favoritado", null).show();
                 } else {
                     firebase.child(treinadorId).child("pokemonFavorito").setValue("");
                     favoritarButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.btn_star_big_off));
                     treinador.setPokemonFavorito("");
+                    Snackbar.make(view, "Pokémon favorito removido", Snackbar.LENGTH_SHORT)
+                            .setAction("Desfavoritado", null).show();
                 }
 
-                treinador.setPokemonFavorito(nomeP);
                 session.setUser(treinador);
 
-                Snackbar.make(view, "Pokemon escolhido como favorito", Snackbar.LENGTH_SHORT)
-                        .setAction("Favoritado", null).show();
             }
         });
 
     }
 
     public boolean comparaPokemon(String pokemonAtual, String pokemonFavorito){
+
         if (pokemonAtual.equals(pokemonFavorito)) {
             favoritarButton.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.btn_star_big_on));
             return true;

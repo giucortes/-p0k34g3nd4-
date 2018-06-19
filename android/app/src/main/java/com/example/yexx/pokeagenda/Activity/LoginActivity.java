@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.show();
 
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
-        autenticacao.signInWithEmailAndPassword(treinadores.getEmail(), treinadores.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        autenticacao.signInWithEmailAndPassword(treinadores.getEmail().trim(), treinadores.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){

@@ -48,10 +48,9 @@ public class WelcomeActivity extends AppCompatActivity {
         imgPokemonFavorito = (ImageView) findViewById(R.id.imagemPokemonFavoritoView);
 
         session = new Session(WelcomeActivity.this.getApplicationContext());
-        treinador = session.getUser();
 
-        if(treinador.getPokemonFavorito() == null)
-            setFotoPokemonFavorito();
+         // if(treinador.getPokemonFavorito() == null)
+        // setFotoPokemonFavorito();
     }
 
     @Override
@@ -98,9 +97,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void setFotoPokemonFavorito(){
         //getUsuario
-
-
-        treinadorNome= treinador.getNomeTreinador();
+        treinador = session.getUser();
+        treinadorNome = treinador.getNomeTreinador();
         treinadorPokemonFavorito = treinador.getPokemonFavorito();
 
         if(session.getUser() != null) {
@@ -130,10 +128,13 @@ public class WelcomeActivity extends AppCompatActivity {
                         Toast.makeText(WelcomeActivity.this, "Erro: " + databaseError, Toast.LENGTH_SHORT).show();
                     }
                 });
+            } else {
+                Picasso.with(WelcomeActivity.this.getApplicationContext())
+                        .load(R.drawable.pokeicon)
+                        .into(imgPokemonFavorito);
             }
         }
 
     }
-
 
 }
