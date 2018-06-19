@@ -42,6 +42,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //Cria a sessao
+        session = new Session(LoginActivity.this.getApplicationContext());
+        if(session.getUser() != null){
+            treinadores = session.getUser();
+            abrirTelaPrincipal();
+        }
+
         progressDialog = new ProgressDialog(this);
 
         edtEmailLogin = (EditText) findViewById(R.id.emailLogin);
@@ -105,7 +112,6 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot){
                             Treinadores treinador = dataSnapshot.getValue(Treinadores.class);
-                            session = new Session(LoginActivity.this.getApplicationContext());
                             session.setUser(treinador);
 
                             abrirTelaPrincipal();
@@ -115,10 +121,12 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                             Toast.makeText(LoginActivity.this, "Erro: "+databaseError, Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
                     });
                 }else{
                     Toast.makeText(LoginActivity.this, "Ocorreu um erro. Tente Novamente!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
             }
         });

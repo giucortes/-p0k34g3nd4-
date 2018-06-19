@@ -52,6 +52,11 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Para sair, selecione a opção Sair no menu", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected void onResume(){
         super.onResume();
         setFotoPokemonFavorito();

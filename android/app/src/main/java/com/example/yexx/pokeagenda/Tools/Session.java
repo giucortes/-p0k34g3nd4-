@@ -36,4 +36,5 @@ public class Session {
         Treinadores trainer = gson.fromJson(json, Treinadores.class);
         return trainer;
     }
+
 }

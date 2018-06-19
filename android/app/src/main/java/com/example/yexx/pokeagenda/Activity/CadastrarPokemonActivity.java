@@ -154,9 +154,9 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
                 } else if (especiePokemon.getText().toString().equals("")) {
                     Toast.makeText(CadastrarPokemonActivity.this, "Favor inserir uma especie", Toast.LENGTH_SHORT).show();
                     return;
-                } else if ( pesoValidacao > 0 || pesoValidacao < 999.99 ) {
+                } else if ( pesoValidacao < 0 || pesoValidacao > 999.99 ) {
                     Toast.makeText(CadastrarPokemonActivity.this, "Favor inserir um peso", Toast.LENGTH_SHORT).show();
-                } else if ( alturaValidacao > 0 || alturaValidacao < 20.00){
+                } else if ( alturaValidacao < 0 || alturaValidacao > 20.00){
                     Toast.makeText(CadastrarPokemonActivity.this, "Favor inserir uma altura", Toast.LENGTH_SHORT).show();
                 } else {
                     enviarImagemSalvarPoke();

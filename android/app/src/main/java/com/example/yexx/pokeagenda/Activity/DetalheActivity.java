@@ -109,7 +109,7 @@ public class DetalheActivity extends AppCompatActivity {
                 treinador.setPokemonFavorito(nomeP);
                 session.setUser(treinador);
 
-                Snackbar.make(view, "Pokemon escolhido como favorito", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Pokemon escolhido como favorito", Snackbar.LENGTH_SHORT)
                         .setAction("Favoritado", null).show();
             }
         });
