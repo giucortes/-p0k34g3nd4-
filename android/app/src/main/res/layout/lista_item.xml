@@ -24,18 +24,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:fontFamily="@font/latobold"
-                android:padding="5dp"
+                android:padding="12dp"
                 android:text="Nome Pokemon"
+                android:textAlignment="gravity"
                 android:textColor="@color/texto_destaque_lista"
                 android:textSize="17sp" />
 
             <TextView
-                android:id="@+id/nomeTreinadorLista"
+                android:id="@+id/especiePokemonLista"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:fontFamily="@font/latoregular"
-                android:padding="5dp"
-                android:text="Nome Treinador" />
+                android:padding="12dp"
+                android:text="Espécie Pokémon" />
         </LinearLayout>
 
     </LinearLayout>

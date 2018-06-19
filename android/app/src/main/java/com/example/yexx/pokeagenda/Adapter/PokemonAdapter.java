@@ -58,7 +58,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
         Picasso.with(context).load(pokemon2.getFotoUrl()).placeholder(R.mipmap.ic_launcher).fit().centerCrop().transform(new CircleTransform()).into(holder.imagemLista);
 
         if (pokemon2.getTreinadorCadastrou() != null) {
-            holder.txtnomeTreinadorLista.setText(pokemon2.getTreinadorCadastrou().getNomeTreinador());    // TODO colocar nome
+            holder.txtespeciePokemonLista.setText(pokemon2.getEspecie());    // TODO colocar nome
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +80,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
     public class PokemonViewHolder extends RecyclerView.ViewHolder{
 
         public TextView txtnomePokemonLista;
-        public TextView txtnomeTreinadorLista;
+        public TextView txtespeciePokemonLista;
         public ImageView imagemLista;
 
         public Object getItem(int pos) {
@@ -91,7 +91,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
             super(itemView);
 
             txtnomePokemonLista = itemView.findViewById(R.id.nomePokemonLista);
-            txtnomeTreinadorLista = itemView.findViewById(R.id.nomeTreinadorLista);
+            txtespeciePokemonLista = itemView.findViewById(R.id.especiePokemonLista);
             imagemLista = itemView.findViewById(R.id.imagemPokemonLista);
         }
 

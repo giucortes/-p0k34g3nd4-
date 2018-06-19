@@ -24,12 +24,14 @@ import android.os.ParcelFileDescriptor;
 import android.os.StrictMode;
 import android.os.SystemClock;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yexx.pokeagenda.DAO.ConfiguracaoFirebase;
@@ -145,8 +147,11 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Double pesoValidacao = Double.parseDouble(pesoPokemon.getText().toString());
-                Double alturaValidacao = Double.parseDouble(alturaPokemon.getText().toString());
+                String pesoTv = pesoPokemon.getText().toString();
+                Double pesoValidacao = !pesoTv.equals("") ? Double.parseDouble(pesoTv) : -1.0;
+
+                String alturaTv = alturaPokemon.getText().toString();
+                Double alturaValidacao = !alturaTv.equals("") ? Double.parseDouble(alturaTv) : -1.0;
 
                 if(nomePokemon.getText().toString().equals("")) {
                     Toast.makeText(CadastrarPokemonActivity.this, "Favor inserir um nome", Toast.LENGTH_SHORT).show();
@@ -154,10 +159,12 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
                 } else if (especiePokemon.getText().toString().equals("")) {
                     Toast.makeText(CadastrarPokemonActivity.this, "Favor inserir uma especie", Toast.LENGTH_SHORT).show();
                     return;
-                } else if ( pesoValidacao < 0 || pesoValidacao > 999.99 ) {
+                } else if ( pesoValidacao <= 0 || pesoValidacao > 999.99 ) {
                     Toast.makeText(CadastrarPokemonActivity.this, "Favor inserir um peso", Toast.LENGTH_SHORT).show();
-                } else if ( alturaValidacao < 0 || alturaValidacao > 20.00){
+                    return;
+                } else if ( alturaValidacao <= 0 || alturaValidacao > 20.00){
                     Toast.makeText(CadastrarPokemonActivity.this, "Favor inserir uma altura", Toast.LENGTH_SHORT).show();
+                    return;
                 } else {
                     enviarImagemSalvarPoke();
                 }
@@ -233,6 +240,12 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Enviando...");
             progressDialog.show();
+
+            try {
+                fotoPokemon = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+            } catch (IOException e) {
+                Toast.makeText(CadastrarPokemonActivity.this, "Ocorreu um erro:" + e, Toast.LENGTH_SHORT).show();
+            }
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             fotoPokemon.compress(Bitmap.CompressFormat.PNG, 60, baos);
