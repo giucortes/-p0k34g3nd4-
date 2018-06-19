@@ -42,6 +42,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
         storageRef = storage.getReference();
     }
 
+    //cria a lista, o cartaozinho da lista
     @NonNull
     @Override
     public PokemonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -49,29 +50,27 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
         return new PokemonViewHolder(view);
     }
 
+    //liga os eventos. Quando chama o cartaozinho passa os valores que ele vai carregar
     @Override
     public void onBindViewHolder(@NonNull PokemonViewHolder holder, int position) {
 
+        //pega a posiçao do objeto pokemon, o nome e a imagem
         final Pokemon pokemon2 = pokemon.get(position);
-        // holder.itemView.setTag(position);
         holder.txtnomePokemonLista.setText(pokemon2.getNome());
         Picasso.with(context).load(pokemon2.getFotoUrl()).placeholder(R.mipmap.ic_launcher).fit().centerCrop().transform(new CircleTransform()).into(holder.imagemLista);
-
-        if (pokemon2.getTreinadorCadastrou() != null) {
-            holder.txtespeciePokemonLista.setText(pokemon2.getEspecie());    // TODO colocar nome
-        }
+        holder.txtespeciePokemonLista.setText(pokemon2.getEspecie());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // ABRE DETALHES
-                // int position = (int)v.getTag();
+                // ABRE DETALHES PASSANDO OS PARAMETROS
                 openDetailActivity(pokemon2.getFotoUrl(), pokemon2.getNome(), pokemon2.getEspecie(), pokemon2.getAltura(), pokemon2.getPeso(), pokemon2.getTreinadorCadastrou());
             }
         });
 
     }
 
+    //retorna quantos elementos tem na lista
     @Override
     public int getItemCount() {
         return pokemon.size();
@@ -111,41 +110,6 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
 
         context.startActivity(i);
     }
-
-   /* public View getView(int position, View convertView, ViewGroup viewGroup) {
-        if(convertView==null)
-        {
-            convertView= LayoutInflater.from(context).inflate(R.layout.activity_detalhe,viewGroup,false);
-        }
-
-        ImageView fotoPoke = (ImageView) convertView.findViewById(R.id.imagemDetalhe);
-        TextView nomeTxt = (TextView) convertView.findViewById(R.id.txtNomePokemon);
-        TextView especieTxt= (TextView) convertView.findViewById(R.id.txtEspeciePokemon);
-        TextView alturaTxt= (TextView) convertView.findViewById(R.id.txtAlturaPokemon);
-        TextView pesoTxt= (TextView) convertView.findViewById(R.id.txtPesoPokemon);
-        TextView treinadorTxt= (TextView) convertView.findViewById(R.id.txtNomeTreinador);
-
-        final Pokemon p = (Pokemon) this.getItem(position);
-
-        fotoPoke.setImageURI(Uri.parse(p.getFotoUrl()));
-        nomeTxt.setText(p.getNome());
-        especieTxt.setText(p.getEspecie());
-        alturaTxt.setText(String.valueOf(p.getAltura()));
-        pesoTxt.setText(String.valueOf(p.getPeso()));
-        treinadorTxt.setText(p.getTreinadorCadastrou().getNomeTreinador());
-
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //ABRE DETALHES
-                openDetailActivity(p.getFotoUrl(),p.getNome(),p.getEspecie(),p.getAltura(),p.getPeso(),p.getTreinadorCadastrou());
-            }
-        });
-
-        return convertView;
-    }
-    */
-
 
 
 }

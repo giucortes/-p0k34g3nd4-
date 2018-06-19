@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -67,7 +66,7 @@ public class ConsultarPokemonActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                //adapter que faz a pesquisa
                 setAdapterPesquisar(editable.toString());
             }
         });
@@ -111,6 +110,7 @@ public class ConsultarPokemonActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    //puxa todos os pokemons do banco, conecta.
     private void setAdapterPesquisar(final String searchedString) {
         firebase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -119,19 +119,22 @@ public class ConsultarPokemonActivity extends AppCompatActivity {
                  * Limpar lista para cada pesquisa nova
                  * */
                 pokemon.clear();
+                //remove os cartaozinho
                 recyclerView.removeAllViews();
-
+                //reseta o counter
                 int counter = 0;
 
                 /*
                  * Procura todos os pokemons que batam com o valor inserido na busca
                  * */
+                //pra cada chave da lista ele pega os filhotinho
                 for (DataSnapshot dadosfirebase : dataSnapshot.getChildren()) {
 
                     Pokemon pokemonItem = dadosfirebase.getValue(Pokemon.class);
 
                     if(!searchedString.isEmpty()){
 
+                        //Se o nome do pokemon encontrado for igual ao que ta digftado ele adiciona no arraylist
                         if (pokemonItem.getNome().toLowerCase().contains(searchedString.toLowerCase())) {
                             pokemon.add(pokemonItem);
                             counter++;
@@ -151,6 +154,7 @@ public class ConsultarPokemonActivity extends AppCompatActivity {
                         break;
                     }
 
+                    //instancia pra todos os elementos do arraylist
                 pokeAdapter = new PokemonAdapter(ConsultarPokemonActivity.this, pokemon);
                 recyclerView.setAdapter(pokeAdapter);
             }

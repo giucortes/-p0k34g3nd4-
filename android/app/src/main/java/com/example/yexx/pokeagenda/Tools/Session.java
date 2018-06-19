@@ -4,13 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.yexx.pokeagenda.DAO.ConfiguracaoFirebase;
 import com.example.yexx.pokeagenda.Model.Treinadores;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 public class Session {
@@ -26,10 +20,11 @@ public class Session {
             gson = new Gson();
     }
 
-    public boolean isLogged(){
-        String user = prefs.getString(TRAINER,"");
-        return user != null;
-    }
+
+//    public boolean isLogged(){
+//        String user = prefs.getString(TRAINER,"");
+//        return user != null;
+//    }
 
     public void setUser(Treinadores trainer) {
         String strTrainer = gson.toJson(trainer);
@@ -42,6 +37,7 @@ public class Session {
         return trainer;
     }
 
+    //O LOGOUTINHO
     public boolean logout() {
         return prefs.edit().putString(TRAINER, null).commit();
     }

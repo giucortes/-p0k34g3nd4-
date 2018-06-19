@@ -4,7 +4,7 @@ android {
     compileSdkVersion 'android-P'
     defaultConfig {
         applicationId "com.example.yexx.pokeagenda"
-        minSdkVersion 22
+        minSdkVersion 23
         multiDexEnabled true
         targetSdkVersion 27
         versionCode 1

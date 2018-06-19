@@ -32,10 +32,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private Session session;
     private Treinadores treinador;
-
     private String treinadorNome;
     private String treinadorPokemonFavorito;
-
     private ImageView imgPokemonFavorito;
     private TextView txtNomeTreinador;
 
@@ -49,21 +47,25 @@ public class WelcomeActivity extends AppCompatActivity {
 
         session = new Session(WelcomeActivity.this.getApplicationContext());
 
-         // if(treinador.getPokemonFavorito() == null)
-        // setFotoPokemonFavorito();
+
     }
 
+    //Impede de usar o botao de voltar do android para sair do welcome
     @Override
     public void onBackPressed() {
         Toast.makeText(this, "Para sair, selecione a opção Sair no menu", Toast.LENGTH_SHORT).show();
     }
 
+
+    //roda na pagina cada vez que volta pra view. Faz parte do ciclo de vida da activity. Entao ele seta a foto e o nome do treinador cada vez que volta pra pagina
     @Override
     protected void onResume(){
         super.onResume();
         setFotoPokemonFavorito();
     }
 
+
+    //chama o menu xml
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -71,6 +73,7 @@ public class WelcomeActivity extends AppCompatActivity {
         return true;
     }
 
+    //faz um switch case pra cada opçao de menu chamando a acivity respectiva
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
          switch (item.getItemId()){
@@ -95,25 +98,34 @@ public class WelcomeActivity extends AppCompatActivity {
          }
     }
 
+
     public void setFotoPokemonFavorito(){
-        //getUsuario
+        // treinador armazena o usuario
         treinador = session.getUser();
+        //treinadorNome armazena o nome do treinador
         treinadorNome = treinador.getNomeTreinador();
+        //armazena a foto do poke favorito
         treinadorPokemonFavorito = treinador.getPokemonFavorito();
 
+        //se o usuario for diferente de null entao seta o nome do treinador
         if(session.getUser() != null) {
             txtNomeTreinador.setText(treinadorNome);
         }
 
+        //se o pokemon favorito for diferente de null
         if(treinador.getPokemonFavorito() != null) {
+            //se o pokemon favorito for diferente de vazio
             if (!treinador.getPokemonFavorito().equals("")) {
 
+
+                //armazena o pokemon favorito na chave pokemons no objeto pokemon
                 DatabaseReference pokemon = ConfiguracaoFirebase.getFirebase().child("pokemons").child(treinadorPokemonFavorito);
                 pokemon.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        //pega os valores da classe pokemon
                         Pokemon pokemonFavorito = dataSnapshot.getValue(Pokemon.class);
-                        Log.d("TREINADOR FAVORITO FOTO", pokemonFavorito.getFotoUrl());
+                        //Usa o picasso para tratar a imagem e url do pokemon favorito
                         Picasso.with(WelcomeActivity.this.getApplicationContext())
                                 .load(pokemonFavorito.getFotoUrl())
                                 .placeholder(R.drawable.pokeicon)
@@ -128,6 +140,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         Toast.makeText(WelcomeActivity.this, "Erro: " + databaseError, Toast.LENGTH_SHORT).show();
                     }
                 });
+            //Se o pokemon favorito nao existir entao joga a imagem da pokebolinha
             } else {
                 Picasso.with(WelcomeActivity.this.getApplicationContext())
                         .load(R.drawable.pokeicon)

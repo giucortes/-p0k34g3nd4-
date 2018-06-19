@@ -1,37 +1,20 @@
 package com.example.yexx.pokeagenda.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.ContentProvider;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.ParcelFileDescriptor;
 import android.os.StrictMode;
-import android.os.SystemClock;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yexx.pokeagenda.DAO.ConfiguracaoFirebase;
@@ -42,31 +25,26 @@ import com.example.yexx.pokeagenda.Tools.CircleTransform;
 import com.example.yexx.pokeagenda.Tools.Session;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.UUID;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class CadastrarPokemonActivity extends AppCompatActivity {
 
@@ -96,7 +74,7 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
         /* Pega a ação de clicar no menu id cadastrar_menu e traz para a tela CadastrarPokemonActivity */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /* TODO: TEM QUE PASSAR O NOME DO TREINADOR QUE CADASTROU O POKEMON. TEM QUE INCLUIR A VALIDAÇÃO DOS CAMPOS E ZERAR O FORMULÁRIO QUANDO TERMINA DE CADASTRAR */
+        /* TODO: ZERAR O FORMULÁRIO QUANDO TERMINA DE CADASTRAR */
 
         // Init Firebase
 
@@ -173,11 +151,21 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
 
     }
 
+    //METODO QUE DE FATO SALVA O POKEMON NO BOTAO
     private boolean salvarPokemon (Pokemon pokemon){
         try{
             firebase = ConfiguracaoFirebase.getFirebase().child("pokemons");
             firebase.child(pokemon.getNome()).setValue(pokemon);
             Toast.makeText(CadastrarPokemonActivity.this, "Pokemon inserido com sucesso!", Toast.LENGTH_SHORT).show();
+
+            //Zera os campos
+            nomePokemon.setText("");
+            especiePokemon.setText("");
+            pesoPokemon.setText("");
+            alturaPokemon.setText("");
+
+            Picasso.with(this).load(R.drawable.pokeicon).fit().into(imagemCarregada);
+
             return true;
 
 
@@ -187,6 +175,7 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
         }
     }
 
+    // busca imagem na galeria
     private void carregarImagemGaleria(){
         Intent intent =  new Intent();
         intent.setType("image/*");
@@ -194,13 +183,17 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Imagem Selecionada"), PICK_IMAGE_REQUEST);
     }
 
+    //pede permissao, cria um intent pra abrir a camera
+    //cria um arquivo com o caminho que vai usar pra guardar as fotos
     private void carregarImagemCamera(){
         Intent it =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         filePath = Uri.fromFile(getOutputMediaFile());
         it.putExtra(MediaStore.EXTRA_OUTPUT, filePath);
+        //joga pra esse metodo
         startActivityForResult(it, 0);
     }
 
+    //cria o arquivo de fato e salva na pasta pictures no cerura
     private static File getOutputMediaFile(){
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_PICTURES), "CameraDemo");
@@ -227,14 +220,9 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
                 "IMG_"+ timeStamp + ".jpg");
     }
 
-    private String getCaminhoArquivo (Uri uri){
-        ContentResolver cr = getContentResolver();
-        MimeTypeMap mime =  MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cr.getType(uri));
-    }
-
 
     private void enviarImagemSalvarPoke(){
+        //Se tiver foto executa a validaçao da imagem
         if (filePath != null){
 
             final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -247,19 +235,27 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
                 Toast.makeText(CadastrarPokemonActivity.this, "Ocorreu um erro:" + e, Toast.LENGTH_SHORT).show();
             }
 
+
+            //Converte a imagem num bitmap para executar a compressão
+            //baos cria uma matrix de bytes
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             fotoPokemon.compress(Bitmap.CompressFormat.PNG, 60, baos);
             InputStream fotoFinal = new ByteArrayInputStream(baos.toByteArray());
 
+            //cria um random ID para subir a imagem no database, para nao ter duplicação
             path = "images/" + UUID.randomUUID().toString();
 
+            //salva a imagem no caminho definito no path
             StorageReference ref = storageReference.child(path);
+            //faz um upload de bytes
             ref.putStream(fotoFinal)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         progressDialog.dismiss();
                         Toast.makeText(CadastrarPokemonActivity.this, "Imagem enviada", Toast.LENGTH_SHORT).show();
+                        //Se sucesso esconde o progress dialog e mostra mensagem
+                        //chama o salvar poke e pega a URL de download pra jogar na lista
                         salvarPoke(taskSnapshot.getDownloadUrl().toString());
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -280,6 +276,7 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
         }
     }
 
+    //metodo que seta os valores de pokemon e passa a o path da imagem como string.
     private void salvarPoke(String imgPath){
 
         pokemon.setNome(nomePokemon.getText().toString());
@@ -287,15 +284,17 @@ public class CadastrarPokemonActivity extends AppCompatActivity {
         pokemon.setPeso(Double.valueOf(pesoPokemon.getText().toString()));
         pokemon.setAltura(Double.valueOf(alturaPokemon.getText().toString()));
 
+        //Pegar o nome do treinador (que é o usuario logado) pra poder passar pra tela de detalhes
         session = new Session(CadastrarPokemonActivity.this.getApplicationContext());
         Treinadores trainer = session.getUser();
         pokemon.setTreinadorCadastrou(trainer);
 
         pokemon.setFotoUrl(imgPath);
+        //metodo pra salvar o pokemon de fato no botao
         salvarPokemon(pokemon);
     }
 
-
+    //Passa a imagem para o imageview. Se for arquivo ou foto ele coloca no preview e pega o caminho da imagem
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
