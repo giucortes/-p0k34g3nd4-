@@ -47,8 +47,11 @@ public class WelcomeActivity extends AppCompatActivity {
         txtNomeTreinador = (TextView) findViewById(R.id.nomeTreinador);
         imgPokemonFavorito = (ImageView) findViewById(R.id.imagemPokemonFavoritoView);
 
-        setFotoPokemonFavorito();
+        session = new Session(WelcomeActivity.this.getApplicationContext());
+        treinador = session.getUser();
 
+        if(treinador.getPokemonFavorito() == null)
+            setFotoPokemonFavorito();
     }
 
     @Override
@@ -95,8 +98,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void setFotoPokemonFavorito(){
         //getUsuario
-        session = new Session(WelcomeActivity.this.getApplicationContext());
-        treinador = session.getUser();
+
 
         treinadorNome= treinador.getNomeTreinador();
         treinadorPokemonFavorito = treinador.getPokemonFavorito();

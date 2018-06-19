@@ -15,15 +15,15 @@ import com.google.gson.Gson;
 
 public class Session {
 
-    private SharedPreferences prefs;
-
-    final String TRAINER = "trainer";
-    Gson gson;
+    private static SharedPreferences prefs;
+    private static Gson gson;
+    final static String TRAINER = "trainer";
 
     public Session(Context cntx) {
-        // TODO Auto-generated constructor stub
-        prefs = PreferenceManager.getDefaultSharedPreferences(cntx);
-        gson = new Gson();
+        if (prefs == null)
+            prefs = PreferenceManager.getDefaultSharedPreferences(cntx);
+        if (gson == null)
+            gson = new Gson();
     }
 
     public boolean isLogged(){
